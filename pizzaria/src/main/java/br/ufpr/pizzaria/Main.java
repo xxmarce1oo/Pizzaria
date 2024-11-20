@@ -9,6 +9,8 @@ package br.ufpr.pizzaria;
  * @author marce
  */
 
+import br.ufpr.pizzaria.model.Cliente;
+import br.ufpr.pizzaria.util.Persistencia;
 import java.util.ArrayList;
 
 public class Main {
