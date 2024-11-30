@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.function.ToDoubleFunction;
 
 public class TelaPedido extends JFrame {
     private JComboBox<Cliente> comboClientes;
@@ -162,7 +163,7 @@ public class TelaPedido extends JFrame {
     }
 
     private void atualizarPrecoTotal() {
-        double total = listaPizzas.stream().mapToDouble(Pizza::getPreco).sum();
+        double total = listaPizzas.stream().mapToDouble((ToDoubleFunction<? super Pizza>) Pizza::calcularPreco).sum();
         lblPrecoTotal.setText(String.format("Preço Total: R$ %.2f", total));
     }
 

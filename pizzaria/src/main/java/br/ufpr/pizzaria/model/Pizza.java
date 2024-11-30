@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.ufpr.pizzaria.model;
-
 
 import java.util.ArrayList;
 
@@ -14,6 +9,10 @@ public class Pizza {
     public Pizza(Forma forma, ArrayList<Sabor> sabores) {
         this.forma = forma;
         this.sabores = sabores;
+    }
+
+    public Pizza(String forma, double dimensao, String sabor, double quantidade, double precoPizza) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public double calcularPreco() {

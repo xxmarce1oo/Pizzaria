@@ -19,6 +19,6 @@ public class Main {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> Persistencia.salvarClientes(clientes)));
 
-        new TelaCadastroCliente(clientes);
+        TelaCadastroClientes telaCadastroClientes = new TelaCadastroClientes(clientes);
     }
 }

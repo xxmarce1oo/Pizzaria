@@ -12,7 +12,7 @@ public class Cliente {
     private String telefone;
     private ArrayList<Pedido> pedidos;
 
-    public Cliente(String nome, String sobrenome, String telefone) {
+    public Cliente(int par, String nome, String sobrenome, String telefone) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.telefone = telefone;
@@ -37,5 +37,25 @@ public class Cliente {
 
     public ArrayList<Pedido> getPedidos() {
         return pedidos;
+    }
+
+    public void setNome(String nome) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setSobrenome(String sobrenome) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setTelefone(String telefone) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setId(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object getId() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

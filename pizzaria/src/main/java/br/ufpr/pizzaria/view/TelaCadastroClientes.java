@@ -4,7 +4,6 @@ import br.ufpr.pizzaria.model.Cliente;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class TelaCadastroClientes extends JFrame {
@@ -169,7 +168,7 @@ public class TelaCadastroClientes extends JFrame {
         ArrayList<Cliente> clientes = new ArrayList<>();
         clientes.add(new Cliente(1, "João", "Silva", "123456789"));
         clientes.add(new Cliente(2, "Maria", "Oliveira", "987654321"));
-        TelaCadastroClientes tela = new TelaCadastroClientes(clientes);
+        TelaCadastroCliente tela = new TelaCadastroCliente(clientes);
         tela.setVisible(true);
     }
 }

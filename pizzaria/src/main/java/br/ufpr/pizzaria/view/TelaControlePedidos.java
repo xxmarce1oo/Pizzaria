@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.ufpr.pizzaria.view;
-
-/**
- *
- * @author marce
- */
 
 import br.ufpr.pizzaria.model.Pedido;
 import javax.swing.*;
@@ -84,7 +75,7 @@ public class TelaControlePedidos extends JFrame {
 
         String statusFiltro = (String) comboStatus.getSelectedItem();
         for (Pedido pedido : listaPedidos) {
-            if (statusFiltro.equals("Todos") || pedido.getStatus().equalsIgnoreCase(statusFiltro)) {
+            if (statusFiltro.equals("Todos") || statusFiltro.equalsIgnoreCase((String) pedido.getStatus())) {
                 modeloTabela.addRow(new Object[]{
                         pedido.getId(),
                         pedido.getCliente().getNome(),
@@ -116,7 +107,7 @@ public class TelaControlePedidos extends JFrame {
         if (novoStatus != null) {
             int pedidoId = (int) modeloTabela.getValueAt(linhaSelecionada, 0);
             for (Pedido pedido : listaPedidos) {
-                if (pedido.getId() == pedidoId) {
+                if (Integer.valueOf(pedidoId).equals(pedido.getId())) {
                     pedido.setStatus(novoStatus);
                     JOptionPane.showMessageDialog(this, "Status alterado com sucesso!");
                     atualizarTabela();
