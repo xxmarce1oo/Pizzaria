@@ -3,22 +3,17 @@ package br.ufpr.pizzaria.view;
 import br.ufpr.pizzaria.model.Cliente;
 import br.ufpr.pizzaria.model.Pedido;
 import br.ufpr.pizzaria.model.Pizza;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.function.ToDoubleFunction;
 
 public class TelaPedido extends JFrame {
     private JComboBox<Cliente> comboClientes;
     private JComboBox<String> comboFormaPizza, comboSabores;
-    private JTextField txtDimensao, txtQuantidade;
+    private JTextField txtDimensao;
     private JTable tabelaPizzas;
     private DefaultTableModel modeloTabela;
-    private JButton btnAdicionarPizza, btnFinalizarPedido;
     private JLabel lblPrecoTotal;
 
     private ArrayList<Pedido> listaPedidos;
@@ -34,72 +29,43 @@ public class TelaPedido extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        setLayout(new BorderLayout());
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // Painel superior: Seleção do cliente
-        JPanel painelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        comboClientes = new JComboBox<>();
-        for (Cliente cliente : listaClientes) {
-            comboClientes.addItem(cliente);
-        }
-        painelSuperior.add(new JLabel("Cliente:"));
-        painelSuperior.add(comboClientes);
-
-        add(painelSuperior, BorderLayout.NORTH);
-
-        // Painel central: Configuração do pedido
-        JPanel painelCentral = new JPanel(new GridLayout(5, 2));
-        painelCentral.add(new JLabel("Forma da Pizza:"));
-        comboFormaPizza = new JComboBox<>(new String[]{"Quadrado", "Círculo", "Triângulo"});
-        painelCentral.add(comboFormaPizza);
-
-        painelCentral.add(new JLabel("Dimensão (cm):"));
-        txtDimensao = new JTextField();
-        painelCentral.add(txtDimensao);
-
-        painelCentral.add(new JLabel("Sabores (até 2):"));
-        comboSabores = new JComboBox<>(new String[]{"Simples", "Especial", "Premium"});
-        painelCentral.add(comboSabores);
-
-        painelCentral.add(new JLabel("Quantidade (cm²):"));
-        txtQuantidade = new JTextField();
-        painelCentral.add(txtQuantidade);
-
-        btnAdicionarPizza = new JButton("Adicionar Pizza");
-        painelCentral.add(btnAdicionarPizza);
-
-        lblPrecoTotal = new JLabel("Preço Total: R$ 0,00");
-        painelCentral.add(lblPrecoTotal);
-
-        add(painelCentral, BorderLayout.CENTER);
-
-        // Painel inferior: Tabela de pizzas e ações
-        JPanel painelInferior = new JPanel(new BorderLayout());
-        String[] colunas = {"Forma", "Dimensão", "Sabores", "Quantidade", "Preço"};
-        modeloTabela = new DefaultTableModel(colunas, 0);
+        modeloTabela = new DefaultTableModel(new String[]{"Forma", "Dimensão", "Sabores", "Preço"}, 0);
         tabelaPizzas = new JTable(modeloTabela);
 
-        painelInferior.add(new JScrollPane(tabelaPizzas), BorderLayout.CENTER);
+        comboClientes = new JComboBox<>(clientes.toArray(new Cliente[0]));
+        comboFormaPizza = new JComboBox<>(new String[]{"Círculo", "Quadrado", "Triângulo"});
+        comboSabores = new JComboBox<>(new String[]{"Simples", "Especial", "Premium"});
+        txtDimensao = new JTextField();
+        lblPrecoTotal = new JLabel("Preço Total: R$0,00");
 
-        btnFinalizarPedido = new JButton("Finalizar Pedido");
-        painelInferior.add(btnFinalizarPedido, BorderLayout.SOUTH);
+        JButton btnAdicionarPizza = new JButton("Adicionar Pizza");
+        btnAdicionarPizza.addActionListener(e -> adicionarPizza());
 
-        add(painelInferior, BorderLayout.SOUTH);
+        JButton btnFinalizarPedido = new JButton("Finalizar Pedido");
+        btnFinalizarPedido.addActionListener(e -> finalizarPedido());
 
-        // Listeners
-        btnAdicionarPizza.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                adicionarPizza();
-            }
-        });
+        JPanel panelForm = new JPanel(new GridLayout(4, 2));
+        panelForm.add(new JLabel("Cliente:"));
+        panelForm.add(comboClientes);
+        panelForm.add(new JLabel("Forma da Pizza:"));
+        panelForm.add(comboFormaPizza);
+        panelForm.add(new JLabel("Dimensão:"));
+        panelForm.add(txtDimensao);
+        panelForm.add(new JLabel("Sabor:"));
+        panelForm.add(comboSabores);
 
-        btnFinalizarPedido.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                finalizarPedido();
-            }
-        });
+        JPanel panelInferior = new JPanel(new BorderLayout());
+        panelInferior.add(btnAdicionarPizza, BorderLayout.WEST);
+        panelInferior.add(btnFinalizarPedido, BorderLayout.EAST);
+        panelInferior.add(lblPrecoTotal, BorderLayout.SOUTH);
+
+        panelPrincipal.add(panelForm, BorderLayout.NORTH);
+        panelPrincipal.add(new JScrollPane(tabelaPizzas), BorderLayout.CENTER);
+        panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
+
+        add(panelPrincipal);
     }
 
     private void adicionarPizza() {
@@ -107,90 +73,78 @@ public class TelaPedido extends JFrame {
             String forma = (String) comboFormaPizza.getSelectedItem();
             double dimensao = Double.parseDouble(txtDimensao.getText());
             String sabor = (String) comboSabores.getSelectedItem();
-            double quantidade = Double.parseDouble(txtQuantidade.getText());
 
             // Validação das dimensões
-            if (forma.equals("Quadrado") && (dimensao < 10 || dimensao > 40)) {
-                JOptionPane.showMessageDialog(this, "O lado do quadrado deve ser entre 10 e 40 cm!");
-                return;
-            } else if (forma.equals("Círculo") && (dimensao < 7 || dimensao > 23)) {
-                JOptionPane.showMessageDialog(this, "O raio do círculo deve ser entre 7 e 23 cm!");
-                return;
+            if (forma.equals("Círculo") && (dimensao < 7 || dimensao > 23)) {
+                throw new IllegalArgumentException("O raio do círculo deve ser entre 7 e 23 cm!");
+            } else if (forma.equals("Quadrado") && (dimensao < 10 || dimensao > 40)) {
+                throw new IllegalArgumentException("O lado do quadrado deve ser entre 10 e 40 cm!");
             } else if (forma.equals("Triângulo") && (dimensao < 20 || dimensao > 60)) {
-                JOptionPane.showMessageDialog(this, "O lado do triângulo deve ser entre 20 e 60 cm!");
-                return;
+                throw new IllegalArgumentException("O lado do triângulo deve ser entre 20 e 60 cm!");
             }
 
-            if (quantidade < 100 || quantidade > 1600) {
-                JOptionPane.showMessageDialog(this, "A quantidade deve ser entre 100 e 1600 cm²!");
-                return;
-            }
+            // Cálculo do preço
+            double preco = calcularPreco(forma, sabor, dimensao);
 
-            // Calcula o preço
-            double precoPizza = calcularPreco(forma, sabor, quantidade);
-
-            // Adiciona à lista de pizzas
-            Pizza pizza = new Pizza(forma, dimensao, sabor, quantidade, precoPizza);
-            listaPizzas.add(pizza);
-
-            // Atualiza a tabela
-            modeloTabela.addRow(new Object[]{forma, dimensao, sabor, quantidade, precoPizza});
-
-            atualizarPrecoTotal();
-            limparCampos();
-
+            // Adiciona a pizza na lista
+            modeloTabela.addRow(new Object[]{forma, dimensao, sabor, String.format("R$%.2f", preco)});
+            lblPrecoTotal.setText(String.format("Preço Total: R$%.2f", calcularPrecoTotal()));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Preencha os campos corretamente!");
+            JOptionPane.showMessageDialog(this, "Por favor, insira um valor numérico válido para a dimensão.");
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
-    private double calcularPreco(String forma, String sabor, double quantidade) {
-        double precoBase;
+    private double calcularPreco(String forma, String sabor, double dimensao) {
+        double precoPorCm2;
         switch (sabor) {
             case "Simples":
-                precoBase = 1.0;
+                precoPorCm2 = 1.0;
                 break;
             case "Especial":
-                precoBase = 1.5;
+                precoPorCm2 = 1.5;
                 break;
             case "Premium":
-                precoBase = 2.0;
+                precoPorCm2 = 2.0;
                 break;
             default:
-                precoBase = 0;
+                throw new IllegalArgumentException("Sabor inválido.");
         }
-        return quantidade * precoBase;
+        double area = calcularArea(forma, dimensao);
+        return area * precoPorCm2;
     }
 
-    private void atualizarPrecoTotal() {
-        double total = listaPizzas.stream().mapToDouble((ToDoubleFunction<? super Pizza>) Pizza::calcularPreco).sum();
-        lblPrecoTotal.setText(String.format("Preço Total: R$ %.2f", total));
+    private double calcularArea(String forma, double dimensao) {
+        switch (forma) {
+            case "Círculo":
+                return Math.PI * Math.pow(dimensao, 2);
+            case "Quadrado":
+                return Math.pow(dimensao, 2);
+            case "Triângulo":
+                return (Math.sqrt(3) / 4) * Math.pow(dimensao, 2);
+            default:
+                throw new IllegalArgumentException("Forma inválida.");
+        }
     }
 
-    private void limparCampos() {
-        txtDimensao.setText("");
-        txtQuantidade.setText("");
+    private double calcularPrecoTotal() {
+        double total = 0;
+        for (int i = 0; i < modeloTabela.getRowCount(); i++) {
+            String precoStr = (String) modeloTabela.getValueAt(i, 3);
+            total += Double.parseDouble(precoStr.replace("R$", "").replace(",", "."));
+        }
+        return total;
     }
 
     private void finalizarPedido() {
-        if (listaPizzas.isEmpty()) {
+        if (modeloTabela.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Adicione pelo menos uma pizza ao pedido!");
             return;
         }
 
         Cliente cliente = (Cliente) comboClientes.getSelectedItem();
-        Pedido pedido = new Pedido(listaPedidos.size() + 1, cliente, listaPizzas);
-
-        listaPedidos.add(pedido);
-
-        JOptionPane.showMessageDialog(this, "Pedido finalizado com sucesso!");
+        JOptionPane.showMessageDialog(this, "Pedido finalizado para o cliente " + cliente.getNome() + "!");
         dispose();
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        TelaPedido tela = new TelaPedido(clientes, pedidos);
-        tela.setVisible(true);
     }
 }

@@ -1,5 +1,8 @@
-br\ufpr\pizzaria\TelaCadastroClientes.class
+br\ufpr\pizzaria\service\ClienteService.class
+br\ufpr\pizzaria\view\TelaCadastroCliente.class
 br\ufpr\pizzaria\model\Cliente.class
 br\ufpr\pizzaria\model\Pedido.class
+br\ufpr\pizzaria\TelaCadastroCliente.class
 br\ufpr\pizzaria\model\T.class
-br\ufpr\pizzaria\Main.class
+br\ufpr\pizzaria\Pizzaria.class
+br\ufpr\pizzaria\util\IdGenerator.class

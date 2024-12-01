@@ -16,18 +16,8 @@ public class Pizza {
     }
 
     public double calcularPreco() {
-        if (sabores == null || sabores.isEmpty()) {
-            throw new IllegalStateException("A lista de sabores está vazia!");
-        }
-
         double area = forma.calcularArea();
-        double precoMedio = 0;
-
-        for (Sabor sabor : sabores) {
-            precoMedio += sabor.getPrecoPorCm2();
-        }
-        precoMedio /= sabores.size();
-
+        double precoMedio = sabores.stream().mapToDouble(Sabor::getPrecoPorCm2).average().orElse(0);
         return area * precoMedio;
     }
 }

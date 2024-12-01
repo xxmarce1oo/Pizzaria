@@ -11,9 +11,9 @@ import java.util.ArrayList;
  *
  * @author SME
  */
-public class TelaCadastroClientes {
+public class TelaCadastroCliente {
 
-    public TelaCadastroClientes(ArrayList<Cliente> clientes) {
+    public TelaCadastroCliente(ArrayList<Cliente> clientes) {
     }
     
 }

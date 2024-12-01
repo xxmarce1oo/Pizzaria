@@ -1,4 +1,3 @@
-C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\Main.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\model\Circulo.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\model\Cliente.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\model\Forma.java
@@ -8,8 +7,11 @@ C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufp
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\model\Sabor.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\model\T.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\model\Triangulo.java
-C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\TelaCadastroClientes.java
+C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\Pizzaria.java
+C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\service\ClienteService.java
+C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\TelaCadastroCliente.java
+C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\util\IdGenerator.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\util\Persistencia.java
-C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\view\TelaCadastroClientes.java
+C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\view\TelaCadastroCliente.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\view\TelaControlePedidos.java
 C:\Users\marce\OneDrive\Área de Trabalho\Pizzaria\pizzaria\src\main\java\br\ufpr\pizzaria\view\TelaPedido.java
