@@ -29,7 +29,6 @@ public class Persistencia {
      *
      * @return Lista de clientes carregada, ou uma lista vazia em caso de erro.
      */
-    @SuppressWarnings("unchecked")
     public static ArrayList<Cliente> carregarClientes() {
         File arquivo = new File(ARQUIVO_CLIENTES);
         if (!arquivo.exists()) {

@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class TelaControlePedidos extends JFrame {
+public class TelaControlePedidos extends JDialog {
     private JTable tabelaPedidos;
     private DefaultTableModel modeloTabela;
     private JComboBox<String> comboStatus;
@@ -23,10 +23,8 @@ public class TelaControlePedidos extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Layout principal
         setLayout(new BorderLayout());
 
-        // Painel superior com filtros
         JPanel painelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         comboStatus = new JComboBox<>(new String[]{"Todos", "Aberto", "A Caminho", "Entregue"});
         btnAtualizarTabela = new JButton("Atualizar Tabela");
@@ -37,24 +35,20 @@ public class TelaControlePedidos extends JFrame {
 
         add(painelSuperior, BorderLayout.NORTH);
 
-        // Tabela para exibir os pedidos
         String[] colunas = {"ID Pedido", "Cliente", "Valor Total", "Status"};
         modeloTabela = new DefaultTableModel(colunas, 0);
         tabelaPedidos = new JTable(modeloTabela);
 
         add(new JScrollPane(tabelaPedidos), BorderLayout.CENTER);
 
-        // Painel inferior com ações
         JPanel painelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         btnAlterarStatus = new JButton("Alterar Status");
         painelInferior.add(btnAlterarStatus);
 
         add(painelInferior, BorderLayout.SOUTH);
 
-        // Carregar dados iniciais na tabela
         atualizarTabela();
 
-        // Listeners
         btnAtualizarTabela.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,17 +64,21 @@ public class TelaControlePedidos extends JFrame {
         });
     }
 
+    public void atualizarTabelaExterna() {
+        atualizarTabela();
+    }
+
     private void atualizarTabela() {
-        modeloTabela.setRowCount(0); // Limpar tabela
+        modeloTabela.setRowCount(0);
 
         String statusFiltro = (String) comboStatus.getSelectedItem();
         for (Pedido pedido : listaPedidos) {
-            if (statusFiltro.equals("Todos") || statusFiltro.equalsIgnoreCase((String) pedido.getStatus())) {
+            if (statusFiltro.equals("Todos") || statusFiltro.equalsIgnoreCase(pedido.getEstado())) {
                 modeloTabela.addRow(new Object[]{
                         pedido.getId(),
                         pedido.getCliente().getNome(),
-                        pedido.getValorTotal(),
-                        pedido.getStatus()
+                        pedido.calcularPrecoTotal(),
+                        pedido.getEstado()
                 });
             }
         }
@@ -115,13 +113,5 @@ public class TelaControlePedidos extends JFrame {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        // Teste da interface
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        // Adicionar pedidos de exemplo para teste
-        TelaControlePedidos tela = new TelaControlePedidos(pedidos);
-        tela.setVisible(true);
     }
 }

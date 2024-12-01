@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TelaPedido extends JFrame {
+public class TelaPedido extends JDialog {
     private JComboBox<Cliente> comboClientes;
     private JComboBox<String> comboFormaPizza, comboSabores;
     private JTextField txtDimensao;
@@ -19,10 +19,12 @@ public class TelaPedido extends JFrame {
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Pizza> listaPizzas = new ArrayList<>();
     private ArrayList<Cliente> listaClientes;
+    private TelaControlePedidos telaControlePedidos;
 
-    public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos) {
+    public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos, TelaControlePedidos telaControlePedidos) {
         this.listaClientes = clientes;
         this.listaPedidos = pedidos;
+        this.telaControlePedidos = telaControlePedidos;
 
         setTitle("Realização de Pedidos");
         setSize(700, 500);
@@ -74,7 +76,6 @@ public class TelaPedido extends JFrame {
             double dimensao = Double.parseDouble(txtDimensao.getText());
             String sabor = (String) comboSabores.getSelectedItem();
 
-            // Validação das dimensões
             if (forma.equals("Círculo") && (dimensao < 7 || dimensao > 23)) {
                 throw new IllegalArgumentException("O raio do círculo deve ser entre 7 e 23 cm!");
             } else if (forma.equals("Quadrado") && (dimensao < 10 || dimensao > 40)) {
@@ -83,10 +84,8 @@ public class TelaPedido extends JFrame {
                 throw new IllegalArgumentException("O lado do triângulo deve ser entre 20 e 60 cm!");
             }
 
-            // Cálculo do preço
             double preco = calcularPreco(forma, sabor, dimensao);
 
-            // Adiciona a pizza na lista
             modeloTabela.addRow(new Object[]{forma, dimensao, sabor, String.format("R$%.2f", preco)});
             lblPrecoTotal.setText(String.format("Preço Total: R$%.2f", calcularPrecoTotal()));
         } catch (NumberFormatException e) {
@@ -144,7 +143,24 @@ public class TelaPedido extends JFrame {
         }
 
         Cliente cliente = (Cliente) comboClientes.getSelectedItem();
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione um cliente!");
+            return;
+        }
+
+        Pedido novoPedido = new Pedido(cliente);
+        for (int i = 0; i < modeloTabela.getRowCount(); i++) {
+            String forma = (String) modeloTabela.getValueAt(i, 0);
+            double dimensao = Double.parseDouble(modeloTabela.getValueAt(i, 1).toString());
+            String sabor = (String) modeloTabela.getValueAt(i, 2);
+            double preco = Double.parseDouble(modeloTabela.getValueAt(i, 3).toString().replace("R$", "").replace(",", "."));
+            Pizza pizza = new Pizza(forma, dimensao, sabor, preco);
+            novoPedido.adicionarPizza(pizza);
+        }
+        listaPedidos.add(novoPedido);
+
         JOptionPane.showMessageDialog(this, "Pedido finalizado para o cliente " + cliente.getNome() + "!");
+        telaControlePedidos.atualizarTabelaExterna();
         dispose();
     }
 }

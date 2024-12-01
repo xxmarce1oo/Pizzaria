@@ -11,7 +11,7 @@ public class ClienteService {
     }
 
     public void adicionarCliente(String nome, String sobrenome, String telefone) {
-        Cliente cliente = new Cliente(1, nome, sobrenome, telefone);
+        Cliente cliente = new Cliente(listaClientes.size() + 1, nome, sobrenome, telefone);
         clientes.add(cliente);
     }
 

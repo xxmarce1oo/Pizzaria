@@ -4,9 +4,12 @@ import br.ufpr.pizzaria.model.Cliente;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class TelaCadastroCliente extends JFrame {
+
+public class TelaCadastroCliente extends JDialog {
     private JTable tabelaClientes;
     private DefaultTableModel modeloTabela;
     private JTextField txtNome, txtSobrenome, txtTelefone;

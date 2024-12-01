@@ -1,10 +1,10 @@
 package br.ufpr.pizzaria;
 
+import br.ufpr.pizzaria.model.Cliente;
+import br.ufpr.pizzaria.model.Pedido;
 import br.ufpr.pizzaria.view.TelaCadastroCliente;
 import br.ufpr.pizzaria.view.TelaControlePedidos;
 import br.ufpr.pizzaria.view.TelaPedido;
-import br.ufpr.pizzaria.model.Cliente;
-import br.ufpr.pizzaria.model.Pedido;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -13,44 +13,42 @@ public class Pizzaria {
     public static void main(String[] args) {
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Pedido> pedidos = new ArrayList<>();
+        TelaControlePedidos telaControlePedidos = new TelaControlePedidos(pedidos);
 
-        // Exibe as opções do menu
-        String[] opcoes = {"Cadastro de Clientes", "Controle de Pedidos", "Realizar Pedido", "Sair"};
-        String escolha = (String) JOptionPane.showInputDialog(
-                null,
-                "Escolha uma opção:",
-                "Pizzaria",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                opcoes,
-                opcoes[0]
-        );
+        while (true) {
+            String[] opcoes = {"Cadastro de Clientes", "Controle de Pedidos", "Realizar Pedido"};
+            String escolha = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Escolha uma opção:",
+                    "Pizzaria",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opcoes,
+                    opcoes[0]
+            );
 
-        // Se o usuário escolher 'Sair' ou cancelar, o programa fecha
-        if (escolha == null || escolha.equals("Sair")) {
-            System.out.println("Encerrando o programa...");
-            System.exit(0);  // Encerra o programa
-        }
-
-        // Exibe a tela correspondente com base na escolha do usuário
-        switch (escolha) {
-            case "Cadastro de Clientes":
-                TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(clientes);
-                telaCadastroCliente.setVisible(true);
+            if (escolha == null) {
                 break;
+            }
 
-            case "Controle de Pedidos":
-                TelaControlePedidos telaControlePedidos = new TelaControlePedidos(pedidos);
-                telaControlePedidos.setVisible(true);
-                break;
-
-            case "Realizar Pedido":
-                TelaPedido telaPedido = new TelaPedido(clientes, pedidos);
-                telaPedido.setVisible(true);
-                break;
-
-            default:
-                JOptionPane.showMessageDialog(null, "Opção inválida!");
+            switch (escolha) {
+                case "Cadastro de Clientes":
+                    JDialog telaCadastroCliente = new TelaCadastroCliente(clientes);
+                    telaCadastroCliente.setModal(true);
+                    telaCadastroCliente.setVisible(true);
+                    break;
+                case "Controle de Pedidos":
+                    telaControlePedidos.setModal(true);
+                    telaControlePedidos.setVisible(true);
+                    break;
+                case "Realizar Pedido":
+                    JDialog telaPedido = new TelaPedido(clientes, pedidos, telaControlePedidos);
+                    telaPedido.setModal(true);
+                    telaPedido.setVisible(true);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida!");
+            }
         }
     }
 }

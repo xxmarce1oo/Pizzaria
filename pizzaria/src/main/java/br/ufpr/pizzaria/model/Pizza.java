@@ -1,23 +1,35 @@
 package br.ufpr.pizzaria.model;
 
-import java.util.ArrayList;
-
 public class Pizza {
-    private Forma forma;
-    private ArrayList<Sabor> sabores;
+    private String forma;
+    private double dimensao;
+    private String sabor;
+    private double preco;
 
-    public Pizza(Forma forma, ArrayList<Sabor> sabores) {
+    public Pizza(String forma, double dimensao, String sabor, double preco) {
         this.forma = forma;
-        this.sabores = sabores;
+        this.dimensao = dimensao;
+        this.sabor = sabor;
+        this.preco = preco;
     }
 
-    public Pizza(String forma, double dimensao, String sabor, double quantidade, double precoPizza) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getForma() {
+        return forma;
+    }
+
+    public double getDimensao() {
+        return dimensao;
+    }
+
+    public String getSabor() {
+        return sabor;
+    }
+
+    public double getPreco() {
+        return preco;
     }
 
     public double calcularPreco() {
-        double area = forma.calcularArea();
-        double precoMedio = sabores.stream().mapToDouble(Sabor::getPrecoPorCm2).average().orElse(0);
-        return area * precoMedio;
+        return preco;
     }
 }
