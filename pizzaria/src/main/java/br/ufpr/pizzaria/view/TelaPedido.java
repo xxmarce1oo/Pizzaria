@@ -17,7 +17,6 @@ public class TelaPedido extends JDialog {
     private JLabel lblPrecoTotal;
 
     private ArrayList<Pedido> listaPedidos;
-    private ArrayList<Pizza> listaPizzas = new ArrayList<>();
     private ArrayList<Cliente> listaClientes;
     private TelaControlePedidos telaControlePedidos;
 
