@@ -1,6 +1,8 @@
 package br.ufpr.pizzaria.view;
 
 import br.ufpr.pizzaria.model.Cliente;
+import br.ufpr.pizzaria.model.Pedido;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -13,10 +15,12 @@ public class TelaCadastroCliente extends JDialog {
     private JTextField txtNome, txtSobrenome, txtTelefone;
     private JButton btnAdicionar, btnAtualizar, btnExcluir, btnFiltrar;
     private ArrayList<Cliente> listaClientes;
+    private TelaControlePedidos telaControlePedidos;
 
     // Construtor da classe TelaCadastroCliente que inicializa os componentes.
-    public TelaCadastroCliente(ArrayList<Cliente> clientes) {
+    public TelaCadastroCliente(ArrayList<Cliente> clientes, TelaControlePedidos telaControlePedidos) {
         this.listaClientes = clientes;
+        this.telaControlePedidos = telaControlePedidos;
         setTitle("Cadastro de Clientes");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -125,18 +129,15 @@ public class TelaCadastroCliente extends JDialog {
     // Método para excluir um cliente.
     private void excluirCliente() {
         int linhaSelecionada = tabelaClientes.getSelectedRow();
-
+    
         if (linhaSelecionada == -1) {
             JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.");
             return;
         }
-
-        // Remove o cliente da lista e atualiza os IDs.
-        listaClientes.remove(linhaSelecionada);
-        for (int i = 0; i < listaClientes.size(); i++) {
-            listaClientes.get(i).setId(i + 1);
-        }
-
+    
+        int clienteId = (int) tabelaClientes.getValueAt(linhaSelecionada, 0);
+        listaClientes.removeIf(cliente -> cliente.getId() == clienteId);
+        telaControlePedidos.excluirPedidosDoCliente(clienteId); // Chame o método para excluir os pedidos do cliente
         JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
         atualizarTabela();
     }
@@ -183,11 +184,15 @@ public class TelaCadastroCliente extends JDialog {
     }
 
     // Método principal para testar a interface.
-    public static void main(String[] args) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
-        clientes.add(new Cliente(1, "João", "Silva", "123456789"));
-        clientes.add(new Cliente(2, "Maria", "Oliveira", "987654321"));
-        TelaCadastroCliente tela = new TelaCadastroCliente(clientes);
-        tela.setVisible(true);
-    }
+  public static void main(String[] args) {
+    ArrayList<Cliente> clientes = new ArrayList<>();
+    clientes.add(new Cliente(1, "João", "Silva", "123456789"));
+    clientes.add(new Cliente(2, "Maria", "Oliveira", "987654321"));
+
+    ArrayList<Pedido> pedidos = new ArrayList<>();
+    TelaControlePedidos telaControlePedidos = new TelaControlePedidos(pedidos);
+
+    TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(clientes, telaControlePedidos);
+    telaCadastroCliente.setVisible(true);
+}
 }

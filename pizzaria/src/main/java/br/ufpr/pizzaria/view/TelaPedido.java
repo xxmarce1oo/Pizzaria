@@ -19,12 +19,10 @@ public class TelaPedido extends JDialog {
 
     // Listas de pedidos e clientes.
     private ArrayList<Pedido> listaPedidos;
-    private ArrayList<Cliente> listaClientes;
     private TelaControlePedidos telaControlePedidos;
 
     // Construtor da classe TelaPedido que inicializa os componentes.
     public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos, TelaControlePedidos telaControlePedidos) {
-        this.listaClientes = clientes;
         this.listaPedidos = pedidos;
         this.telaControlePedidos = telaControlePedidos;
 

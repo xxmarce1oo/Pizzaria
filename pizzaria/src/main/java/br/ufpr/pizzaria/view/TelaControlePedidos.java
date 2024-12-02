@@ -93,6 +93,10 @@ public class TelaControlePedidos extends JDialog {
             }
         }
     }
+    public void excluirPedidosDoCliente(int clienteId) {
+        listaPedidos.removeIf(pedido -> pedido.getCliente().getId() == clienteId);
+        atualizarTabela();
+    }
 
     // Método privado para alterar o status de um pedido.
     private void alterarStatusPedido() {

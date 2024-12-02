@@ -43,7 +43,7 @@ public class Pizzaria {
             switch (escolha) {
                 case "Cadastro de Clientes":
                     // Abre a tela de cadastro de clientes.
-                    JDialog telaCadastroCliente = new TelaCadastroCliente(clientes);
+                    JDialog telaCadastroCliente = new TelaCadastroCliente(clientes, telaControlePedidos);
                     telaCadastroCliente.setModal(true);
                     telaCadastroCliente.setVisible(true);
                     break;
