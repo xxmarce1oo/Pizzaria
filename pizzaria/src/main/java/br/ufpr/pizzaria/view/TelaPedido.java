@@ -27,10 +27,18 @@ public class TelaPedido extends JDialog {
     private JComboBox<Sabor> comboSaboresPizza;
     private JComboBox<Sabor> comboSegundoSaborPizza; // Declaração da variável
 
+    // Preços por cm² para cada tipo de pizza.
+    private double precoSimples;
+    private double precoEspecial;
+    private double precoPremium;
+
     // Construtor da classe TelaPedido que inicializa os componentes.
-    public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos, ArrayList<Sabor> sabores, TelaControlePedidos telaControlePedidos) {
+    public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos, ArrayList<Sabor> sabores, TelaControlePedidos telaControlePedidos, double precoSimples, double precoEspecial, double precoPremium) {
         this.listaPedidos = pedidos;
         this.telaControlePedidos = telaControlePedidos;
+        this.precoSimples = precoSimples;
+        this.precoEspecial = precoEspecial;
+        this.precoPremium = precoPremium;
 
         setTitle("Realização de Pedidos");
         setSize(700, 500);
@@ -39,7 +47,7 @@ public class TelaPedido extends JDialog {
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        modeloTabela = new DefaultTableModel(new String[]{"Forma", "Dimensão", "Sabor", "Preço"}, 0);
+        modeloTabela = new DefaultTableModel(new String[]{"Forma", "Dimensão", "Sabores", "Preço"}, 0);
         tabelaPizzas = new JTable(modeloTabela);
 
         comboClientes = new JComboBox<>(clientes.toArray(new Cliente[0]));
@@ -93,6 +101,10 @@ public class TelaPedido extends JDialog {
 
         // Carregar pedido existente se houver
         carregarPedidoExistente();
+    }
+
+    public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos,
+            TelaControlePedidos telaControlePedidos2) {
     }
 
     private void carregarPedidoExistente() {
@@ -157,13 +169,13 @@ public class TelaPedido extends JDialog {
         for (Sabor sabor : sabores) {
             switch (sabor.getTipo()) {
                 case "Simples":
-                    totalPrecoPorCm2 += 1.0;
+                    totalPrecoPorCm2 += precoSimples;
                     break;
                 case "Especial":
-                    totalPrecoPorCm2 += 1.5;
+                    totalPrecoPorCm2 += precoEspecial;
                     break;
                 case "Premium":
-                    totalPrecoPorCm2 += 2.0;
+                    totalPrecoPorCm2 += precoPremium;
                     break;
                 default:
                     throw new IllegalArgumentException("Sabor inválido.");

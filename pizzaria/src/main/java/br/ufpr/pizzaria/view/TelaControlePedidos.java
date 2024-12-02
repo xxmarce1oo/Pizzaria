@@ -1,8 +1,10 @@
 package br.ufpr.pizzaria.view;
 
 import br.ufpr.pizzaria.model.Pedido;
+import br.ufpr.pizzaria.model.Pizza;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +24,7 @@ public class TelaControlePedidos extends JDialog {
     public TelaControlePedidos(ArrayList<Pedido> pedidos) {
         this.listaPedidos = pedidos;
         setTitle("Controle de Pedidos");
-        setSize(600, 400);
+        setSize(800, 600); // Aumenta o tamanho da janela para acomodar mais informações
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -40,9 +42,13 @@ public class TelaControlePedidos extends JDialog {
         add(painelSuperior, BorderLayout.NORTH);
 
         // Configuração da tabela de pedidos.
-        String[] colunas = {"ID Pedido", "Cliente", "Valor Total", "Status"};
+        String[] colunas = {"ID Pedido", "Cliente", "Pizzas", "Valor Total", "Status"};
         modeloTabela = new DefaultTableModel(colunas, 0);
         tabelaPedidos = new JTable(modeloTabela);
+
+        // Ajusta a largura das colunas
+        TableColumn colunaPizzas = tabelaPedidos.getColumnModel().getColumn(2);
+        colunaPizzas.setPreferredWidth(300); // Define a largura preferida para a coluna de pizzas
 
         add(new JScrollPane(tabelaPedidos), BorderLayout.CENTER);
 
@@ -84,15 +90,27 @@ public class TelaControlePedidos extends JDialog {
         String statusFiltro = (String) comboStatus.getSelectedItem();
         for (Pedido pedido : listaPedidos) {
             if (statusFiltro.equals("Todos") || statusFiltro.equalsIgnoreCase(pedido.getEstado())) {
+                // Concatena os sabores das pizzas em uma string
+                StringBuilder pizzas = new StringBuilder();
+                for (Pizza pizza : pedido.getPizzas()) {
+                    pizzas.append(pizza.getSabor()).append(", ");
+                }
+                // Remove a última vírgula e espaço
+                if (pizzas.length() > 0) {
+                    pizzas.setLength(pizzas.length() - 2);
+                }
+
                 modeloTabela.addRow(new Object[]{
                         pedido.getId(),
                         pedido.getCliente().getNome(),
+                        pizzas.toString(),
                         pedido.calcularPrecoTotal(),
                         pedido.getEstado()
                 });
             }
         }
     }
+
     public void excluirPedidosDoCliente(int clienteId) {
         listaPedidos.removeIf(pedido -> pedido.getCliente().getId() == clienteId);
         atualizarTabela();

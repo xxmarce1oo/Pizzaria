@@ -4,24 +4,34 @@ import br.ufpr.pizzaria.model.Cliente;
 import br.ufpr.pizzaria.model.Pedido;
 import br.ufpr.pizzaria.model.Sabor;
 import br.ufpr.pizzaria.view.TelaCadastroCliente;
-import br.ufpr.pizzaria.view.TelaCadastroSabores;
 import br.ufpr.pizzaria.view.TelaControlePedidos;
 import br.ufpr.pizzaria.view.TelaPedido;
+import br.ufpr.pizzaria.view.TelaAtualizarPrecoPizza;
+import br.ufpr.pizzaria.view.TelaCadastroSabores;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class Pizzaria {
+    private static double precoSimples = 1.0;
+    private static double precoEspecial = 1.5;
+    private static double precoPremium = 2.0;
+
     public static void main(String[] args) {
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Pedido> pedidos = new ArrayList<>();
-        ArrayList<Sabor> sabores = new ArrayList<>(); // Definindo e inicializando a variável sabores
+        ArrayList<Sabor> sabores = new ArrayList<>();
+
+        // Adiciona alguns sabores de exemplo
+        sabores.add(new Sabor("Mussarela", "Simples"));
+        sabores.add(new Sabor("Calabresa", "Especial"));
+        sabores.add(new Sabor("Frango com Catupiry", "Premium"));
 
         TelaControlePedidos telaControlePedidos = new TelaControlePedidos(pedidos);
 
         while (true) {
             // Define as opções do menu.
-            String[] opcoes = {"Cadastro de Clientes", "Controle de Pedidos", "Realizar Pedido", "Cadastro de Sabores"};
+            String[] opcoes = {"Cadastro de Clientes", "Controle de Pedidos", "Realizar Pedido", "Atualizar Preço das Pizzas", "Cadastrar Sabor"};
 
             // Exibe um diálogo para o usuário escolher uma opção.
             String escolha = (String) JOptionPane.showInputDialog(
@@ -54,15 +64,25 @@ public class Pizzaria {
                     break;
                 case "Realizar Pedido":
                     // Abre a tela de realização de pedidos.
-                    JDialog telaPedido = new TelaPedido(clientes, pedidos, sabores, telaControlePedidos);
+                    JDialog telaPedido = new TelaPedido(clientes, pedidos, sabores, telaControlePedidos, precoSimples, precoEspecial, precoPremium);
                     telaPedido.setModal(true);
                     telaPedido.setVisible(true);
                     break;
-                case "Cadastro de Sabores":
-                    // Abre a tela de cadastro de sabores.
-                    JDialog telaCadastroSabores = new TelaCadastroSabores(sabores);
-                    telaCadastroSabores.setModal(true);
-                    telaCadastroSabores.setVisible(true);
+                case "Atualizar Preço das Pizzas":
+                    // Abre a tela para atualizar o preço das pizzas.
+                    TelaAtualizarPrecoPizza telaAtualizarPrecoPizza = new TelaAtualizarPrecoPizza(precoSimples, precoEspecial, precoPremium);
+                    telaAtualizarPrecoPizza.setModal(true);
+                    telaAtualizarPrecoPizza.setVisible(true);
+                    // Atualiza os preços após fechar a tela.
+                    precoSimples = telaAtualizarPrecoPizza.getPrecoSimples();
+                    precoEspecial = telaAtualizarPrecoPizza.getPrecoEspecial();
+                    precoPremium = telaAtualizarPrecoPizza.getPrecoPremium();
+                    break;
+                case "Cadastrar Sabor":
+                    // Abre a tela para cadastrar um novo sabor.
+                    TelaCadastroSabores telaCadastroSabor = new TelaCadastroSabores(sabores);
+                    telaCadastroSabor.setModal(true);
+                    telaCadastroSabor.setVisible(true);
                     break;
                 default:
                     // Exibe uma mensagem de erro se a opção for inválida.
