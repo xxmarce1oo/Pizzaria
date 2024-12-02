@@ -9,13 +9,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class TelaControlePedidos extends JDialog {
+    // Componentes da interface gráfica.
     private JTable tabelaPedidos;
     private DefaultTableModel modeloTabela;
     private JComboBox<String> comboStatus;
     private JButton btnAlterarStatus, btnAtualizarTabela;
 
+    // Lista de pedidos.
     private ArrayList<Pedido> listaPedidos;
 
+    // Construtor da classe TelaControlePedidos que inicializa os componentes.
     public TelaControlePedidos(ArrayList<Pedido> pedidos) {
         this.listaPedidos = pedidos;
         setTitle("Controle de Pedidos");
@@ -25,6 +28,7 @@ public class TelaControlePedidos extends JDialog {
 
         setLayout(new BorderLayout());
 
+        // Painel superior com filtro de status e botão de atualização.
         JPanel painelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         comboStatus = new JComboBox<>(new String[]{"Todos", "Aberto", "A Caminho", "Entregue"});
         btnAtualizarTabela = new JButton("Atualizar Tabela");
@@ -35,20 +39,24 @@ public class TelaControlePedidos extends JDialog {
 
         add(painelSuperior, BorderLayout.NORTH);
 
+        // Configuração da tabela de pedidos.
         String[] colunas = {"ID Pedido", "Cliente", "Valor Total", "Status"};
         modeloTabela = new DefaultTableModel(colunas, 0);
         tabelaPedidos = new JTable(modeloTabela);
 
         add(new JScrollPane(tabelaPedidos), BorderLayout.CENTER);
 
+        // Painel inferior com botão para alterar o status do pedido.
         JPanel painelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         btnAlterarStatus = new JButton("Alterar Status");
         painelInferior.add(btnAlterarStatus);
 
         add(painelInferior, BorderLayout.SOUTH);
 
+        // Atualiza a tabela com os dados iniciais.
         atualizarTabela();
 
+        // Adiciona listeners aos botões.
         btnAtualizarTabela.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,10 +72,12 @@ public class TelaControlePedidos extends JDialog {
         });
     }
 
+    // Método público para atualizar a tabela externamente.
     public void atualizarTabelaExterna() {
         atualizarTabela();
     }
 
+    // Método privado para atualizar a tabela com os dados dos pedidos.
     private void atualizarTabela() {
         modeloTabela.setRowCount(0);
 
@@ -84,6 +94,7 @@ public class TelaControlePedidos extends JDialog {
         }
     }
 
+    // Método privado para alterar o status de um pedido.
     private void alterarStatusPedido() {
         int linhaSelecionada = tabelaPedidos.getSelectedRow();
 

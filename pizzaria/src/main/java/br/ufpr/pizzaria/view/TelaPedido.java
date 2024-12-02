@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TelaPedido extends JDialog {
+    // Componentes da interface gráfica.
     private JComboBox<Cliente> comboClientes;
     private JComboBox<String> comboFormaPizza, comboSabores;
     private JTextField txtDimensao;
@@ -16,10 +17,12 @@ public class TelaPedido extends JDialog {
     private DefaultTableModel modeloTabela;
     private JLabel lblPrecoTotal;
 
+    // Listas de pedidos e clientes.
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Cliente> listaClientes;
     private TelaControlePedidos telaControlePedidos;
 
+    // Construtor da classe TelaPedido que inicializa os componentes.
     public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos, TelaControlePedidos telaControlePedidos) {
         this.listaClientes = clientes;
         this.listaPedidos = pedidos;
@@ -69,12 +72,14 @@ public class TelaPedido extends JDialog {
         add(panelPrincipal);
     }
 
+    // Método para adicionar uma pizza ao pedido.
     private void adicionarPizza() {
         try {
             String forma = (String) comboFormaPizza.getSelectedItem();
             double dimensao = Double.parseDouble(txtDimensao.getText());
             String sabor = (String) comboSabores.getSelectedItem();
 
+            // Validações de dimensão da pizza.
             if (forma.equals("Círculo") && (dimensao < 7 || dimensao > 23)) {
                 throw new IllegalArgumentException("O raio do círculo deve ser entre 7 e 23 cm!");
             } else if (forma.equals("Quadrado") && (dimensao < 10 || dimensao > 40)) {
@@ -94,6 +99,7 @@ public class TelaPedido extends JDialog {
         }
     }
 
+    // Método para calcular o preço da pizza.
     private double calcularPreco(String forma, String sabor, double dimensao) {
         double precoPorCm2;
         switch (sabor) {
@@ -113,6 +119,7 @@ public class TelaPedido extends JDialog {
         return area * precoPorCm2;
     }
 
+    // Método para calcular a área da pizza.
     private double calcularArea(String forma, double dimensao) {
         switch (forma) {
             case "Círculo":
@@ -126,6 +133,7 @@ public class TelaPedido extends JDialog {
         }
     }
 
+    // Método para calcular o preço total do pedido.
     private double calcularPrecoTotal() {
         double total = 0;
         for (int i = 0; i < modeloTabela.getRowCount(); i++) {
@@ -135,6 +143,7 @@ public class TelaPedido extends JDialog {
         return total;
     }
 
+    // Método para finalizar o pedido.
     private void finalizarPedido() {
         if (modeloTabela.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Adicione pelo menos uma pizza ao pedido!");
