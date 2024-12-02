@@ -1,6 +1,5 @@
 br\ufpr\pizzaria\model\Pizza.class
 br\ufpr\pizzaria\view\TelaAtualizarPrecoPizza.class
-br\ufpr\pizzaria\service\ClienteService.class
 br\ufpr\pizzaria\view\TelaCadastroCliente.class
 br\ufpr\pizzaria\model\Circulo.class
 br\ufpr\pizzaria\model\Cliente.class
