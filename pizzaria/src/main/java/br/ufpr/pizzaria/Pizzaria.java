@@ -30,7 +30,7 @@ public class Pizzaria {
         TelaControlePedidos telaControlePedidos = new TelaControlePedidos(pedidos);
 
         while (true) {
-            // Define as opções do menu.
+            // opções do menu.
             String[] opcoes = {"Cadastro de Clientes", "Controle de Pedidos", "Realizar Pedido", "Atualizar Preço das Pizzas", "Cadastrar Sabor"};
 
             // Exibe um diálogo para o usuário escolher uma opção.

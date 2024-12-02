@@ -1,4 +1,5 @@
 br\ufpr\pizzaria\model\Pizza.class
+br\ufpr\pizzaria\view\TelaAtualizarPrecoPizza.class
 br\ufpr\pizzaria\service\ClienteService.class
 br\ufpr\pizzaria\view\TelaCadastroCliente.class
 br\ufpr\pizzaria\model\Circulo.class
@@ -7,12 +8,12 @@ br\ufpr\pizzaria\model\Sabor.class
 br\ufpr\pizzaria\model\Pedido.class
 br\ufpr\pizzaria\view\TelaPedido.class
 br\ufpr\pizzaria\model\Forma.class
-br\ufpr\pizzaria\util\Persistencia.class
-br\ufpr\pizzaria\TelaCadastroCliente.class
 br\ufpr\pizzaria\view\TelaControlePedidos$2.class
 br\ufpr\pizzaria\Pizzaria.class
+br\ufpr\pizzaria\view\TelaCadastroSabores.class
 br\ufpr\pizzaria\model\Triangulo.class
 br\ufpr\pizzaria\model\Quadrado.class
+br\ufpr\pizzaria\view\TelaAtualizarPrecoPizza$1.class
 br\ufpr\pizzaria\util\IdGenerator.class
 br\ufpr\pizzaria\view\TelaControlePedidos$1.class
 br\ufpr\pizzaria\view\TelaControlePedidos.class
