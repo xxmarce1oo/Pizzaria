@@ -1,34 +1,22 @@
 package br.ufpr.pizzaria.model;
 
-// Importa a classe IdGenerator para gerar IDs únicos para os clientes.
 import br.ufpr.pizzaria.util.IdGenerator;
-// Importa a classe ArrayList para armazenar a lista de pedidos do cliente.
 import java.util.ArrayList;
 
 // Define a classe Cliente.
 public class Cliente {
-    // Atributo privado que armazena o ID do cliente.
     private int id;
-    // Atributo privado que armazena o nome do cliente.
     private String nome;
-    // Atributo privado que armazena o sobrenome do cliente.
     private String sobrenome;
-    // Atributo privado que armazena o telefone do cliente.
     private String telefone;
-    // Atributo privado que armazena a lista de pedidos do cliente.
     private ArrayList<Pedido> pedidos;
 
     // Construtor da classe Cliente que inicializa os atributos.
     public Cliente(int par, String nome, String sobrenome, String telefone) {
-        // Gera um ID único para o cliente usando o IdGenerator.
         this.id = IdGenerator.nextId();
-        // Inicializa o nome do cliente.
         this.nome = nome;
-        // Inicializa o sobrenome do cliente.
         this.sobrenome = sobrenome;
-        // Inicializa o telefone do cliente.
         this.telefone = telefone;
-        // Inicializa a lista de pedidos do cliente como uma nova ArrayList.
         this.pedidos = new ArrayList<>();
     }
 

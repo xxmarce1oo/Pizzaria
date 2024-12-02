@@ -2,7 +2,9 @@ package br.ufpr.pizzaria;
 
 import br.ufpr.pizzaria.model.Cliente;
 import br.ufpr.pizzaria.model.Pedido;
+import br.ufpr.pizzaria.model.Sabor;
 import br.ufpr.pizzaria.view.TelaCadastroCliente;
+import br.ufpr.pizzaria.view.TelaCadastroSabores;
 import br.ufpr.pizzaria.view.TelaControlePedidos;
 import br.ufpr.pizzaria.view.TelaPedido;
 
@@ -11,18 +13,16 @@ import java.util.ArrayList;
 
 public class Pizzaria {
     public static void main(String[] args) {
-        // Cria listas para armazenar clientes e pedidos.
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Pedido> pedidos = new ArrayList<>();
-        
-        // Cria a tela de controle de pedidos.
+        ArrayList<Sabor> sabores = new ArrayList<>(); // Definindo e inicializando a variável sabores
+
         TelaControlePedidos telaControlePedidos = new TelaControlePedidos(pedidos);
 
-        // Loop principal para exibir o menu de opções.
         while (true) {
             // Define as opções do menu.
-            String[] opcoes = {"Cadastro de Clientes", "Controle de Pedidos", "Realizar Pedido"};
-            
+            String[] opcoes = {"Cadastro de Clientes", "Controle de Pedidos", "Realizar Pedido", "Cadastro de Sabores"};
+
             // Exibe um diálogo para o usuário escolher uma opção.
             String escolha = (String) JOptionPane.showInputDialog(
                     null,
@@ -54,9 +54,15 @@ public class Pizzaria {
                     break;
                 case "Realizar Pedido":
                     // Abre a tela de realização de pedidos.
-                    JDialog telaPedido = new TelaPedido(clientes, pedidos, telaControlePedidos);
+                    JDialog telaPedido = new TelaPedido(clientes, pedidos, sabores, telaControlePedidos);
                     telaPedido.setModal(true);
                     telaPedido.setVisible(true);
+                    break;
+                case "Cadastro de Sabores":
+                    // Abre a tela de cadastro de sabores.
+                    JDialog telaCadastroSabores = new TelaCadastroSabores(sabores);
+                    telaCadastroSabores.setModal(true);
+                    telaCadastroSabores.setVisible(true);
                     break;
                 default:
                     // Exibe uma mensagem de erro se a opção for inválida.
