@@ -13,24 +13,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TelaPedido extends JDialog {
-    // Componentes da interface gráfica.
-    private JComboBox<Cliente> comboClientes;
-    private JComboBox<String> comboFormaPizza;
-    private JTextField txtDimensao;
-    private JTable tabelaPizzas;
-    private DefaultTableModel modeloTabela;
-    private JLabel lblPrecoTotal;
-
-    // Listas de pedidos e clientes.
-    private ArrayList<Pedido> listaPedidos;
-    private TelaControlePedidos telaControlePedidos;
-    private JComboBox<Sabor> comboSaboresPizza;
-    private JComboBox<Sabor> comboSegundoSaborPizza; // Declaração da variável
-
-    // Preços por cm² para cada tipo de pizza.
-    private double precoSimples;
-    private double precoEspecial;
-    private double precoPremium;
+     // Componentes da interface gráfica.
+     private JComboBox<Cliente> comboClientes; // ComboBox para selecionar clientes.
+     private JComboBox<String> comboFormaPizza; // ComboBox para selecionar a forma da pizza.
+     private JTextField txtDimensao; // Campo de texto para inserir a dimensão da pizza.
+     private JTable tabelaPizzas; // Tabela para exibir as pizzas adicionadas ao pedido.
+     private DefaultTableModel modeloTabela; // Modelo da tabela para gerenciar os dados da tabela.
+     private JLabel lblPrecoTotal; // Label para exibir o preço total do pedido.
+ 
+     // Listas de pedidos e clientes.
+     private ArrayList<Pedido> listaPedidos; // Lista de pedidos.
+     private TelaControlePedidos telaControlePedidos; // Referência à tela de controle de pedidos.
+     private JComboBox<Sabor> comboSaboresPizza; // ComboBox para selecionar o primeiro sabor da pizza.
+     private JComboBox<Sabor> comboSegundoSaborPizza; // ComboBox para selecionar o segundo sabor da pizza.
+ 
+     // Preços por cm² para cada tipo de pizza.
+     private double precoSimples; // Preço por cm² para pizza simples.
+     private double precoEspecial; // Preço por cm² para pizza especial.
+     private double precoPremium; // Preço por cm² para pizza premium.
+ 
 
     // Construtor da classe TelaPedido que inicializa os componentes.
     public TelaPedido(ArrayList<Cliente> clientes, ArrayList<Pedido> pedidos, ArrayList<Sabor> sabores, TelaControlePedidos telaControlePedidos, double precoSimples, double precoEspecial, double precoPremium) {

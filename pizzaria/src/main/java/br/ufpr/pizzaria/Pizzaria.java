@@ -17,16 +17,16 @@ public class Pizzaria {
     private static double precoEspecial = 1.5;
     private static double precoPremium = 2.0;
 
+    // Armazena Clientes, Pedidos e Sabores
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Sabor> sabores = new ArrayList<>();
+
     public static void main(String[] args) {
-        ArrayList<Cliente> clientes = new ArrayList<>();
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        ArrayList<Sabor> sabores = new ArrayList<>();
+        // Inicializa as listas
+        inicializarListas();
 
-        // Adiciona alguns sabores de exemplo
-        sabores.add(new Sabor("Mussarela", "Simples"));
-        sabores.add(new Sabor("Calabresa", "Especial"));
-        sabores.add(new Sabor("Frango com Catupiry", "Premium"));
-
+        // Cria a tela de controle de pedidos
         TelaControlePedidos telaControlePedidos = new TelaControlePedidos(pedidos);
 
         while (true) {
@@ -89,5 +89,13 @@ public class Pizzaria {
                     JOptionPane.showMessageDialog(null, "Opção inválida!");
             }
         }
+    }
+
+    // Método para inicializar as listas
+    private static void inicializarListas() {
+        // Adiciona alguns sabores de exemplo
+        sabores.add(new Sabor("Mussarela", "Simples"));
+        sabores.add(new Sabor("Calabresa", "Especial"));
+        sabores.add(new Sabor("Frango com Catupiry", "Premium"));
     }
 }
